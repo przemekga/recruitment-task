@@ -7,7 +7,9 @@ polyfill();
 
 export class App {
   initializeApp() {
-    $(".load-username").on("click", e => {
+    $(".load-username").on("submit", e => {
+      e.preventDefault();
+
       const userName = $(".username.input").val();
 
       fetch(`https://api.github.com/users/${userName}`)

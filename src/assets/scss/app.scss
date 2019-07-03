@@ -24,3 +24,7 @@
     align-items: center;
   }
 }
+
+input:focus:invalid {
+  border: 2px solid #ff2323;
+}

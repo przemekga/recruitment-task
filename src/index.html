@@ -9,16 +9,17 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <div class="navbar-item">
-        <div class="field has-addons">
+        <form class="field has-addons load-username">
           <div class="control">
-            <input class="input username" type="text" placeholder="enter github username">
+            <input class="input username" required pattern="[a-z0-9_-]+" type="text"
+              placeholder="enter github username">
           </div>
           <div class="control">
-            <button class="button is-info load-username">
+            <button class="button is-info">
               Load
             </button>
           </div>
-        </div>
+        </form>
       </div>
       <div class="navbar-item">
         <div class="loader is-hidden" id="spinner"></div>
