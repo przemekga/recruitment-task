@@ -6,14 +6,21 @@
   margin-bottom: 8px;
 }
 
-.gh-username img{
-  width: 32px;
+.gh-image {
+  margin-right: 3px;
+  img {
+    width: 42px;
+  }
 }
 
-#profile-bio{
-  margin-top:10px;
+#profile-bio {
+  margin-top: 10px;
 }
 
 .timeline .timeline-item {
-  padding-bottom:1em;
+  padding-bottom: 1em;
+  .content {
+    display: flex;
+    align-items: center;
+  }
 }
