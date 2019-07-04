@@ -1,6 +1,6 @@
 @import "~bulma";
 @import "~bulma-timeline";
-
+$widescreen-breakpoint: 1280px;
 .navbar {
   border-bottom: 1px solid #eee;
   margin-bottom: 8px;
@@ -31,4 +31,11 @@ input:focus:invalid {
 
 .load-username {
   margin-block-end: 0;
+}
+
+.profile-container {
+  @media (min-width: 1280px) {
+    flex: none;
+    width: 30%;
+  }
 }
