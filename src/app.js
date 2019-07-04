@@ -10,9 +10,18 @@ export class App {
     $(".load-username").on("submit", e => {
       e.preventDefault();
       const userName = $(".username.input").val();
-
-      this.fetchUser(userName);
-      this.fetchUserEvents(userName);
+      const dataLoaded = Promise.all([
+        this.fetchUser(userName),
+        this.fetchUserEvents(userName)
+      ]);
+      $(".loader, .profile-container, .events-container").toggleClass(
+        "is-hidden"
+      );
+      dataLoaded.then(() => {
+        $(".loader, .profile-container, .events-container").toggleClass(
+          "is-hidden"
+        );
+      });
     });
   }
 
