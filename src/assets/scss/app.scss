@@ -9,7 +9,7 @@
 .gh-image {
   margin-right: 3px;
   img {
-    width: 42px;
+    width: 43px;
   }
 }
 
@@ -27,4 +27,8 @@
 
 input:focus:invalid {
   border: 2px solid #ff2323;
+}
+
+.load-username {
+  margin-block-end: 0;
 }
