@@ -1,27 +1,29 @@
-const path = require('path'),
-  webpack = require('webpack'),
-  CleanWebpackPlugin = require('clean-webpack-plugin'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require("path"),
+  glob = require("glob"),
+  webpack = require("webpack"),
+  CleanWebpackPlugin = require("clean-webpack-plugin"),
+  HtmlWebpackPlugin = require("html-webpack-plugin"),
+  ExtractTextPlugin = require("extract-text-webpack-plugin"),
+  PurgecssPlugin = require("purgecss-webpack-plugin");
 
-const extractPlugin = new ExtractTextPlugin({filename: './assets/css/app.css'});
+const extractPlugin = new ExtractTextPlugin({
+  filename: "./assets/css/app.css"
+});
 
 const config = {
-
-  context: path.resolve(__dirname, 'src'),
+  context: path.resolve(__dirname, "src"),
 
   entry: {
-    app: './index.js'
+    app: "./index.js"
   },
 
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: './assets/js/[name].bundle.js'
+    path: path.resolve(__dirname, "dist"),
+    filename: "./assets/js/[name].bundle.js"
   },
 
   module: {
     rules: [
-
       {
         test: /\.js$/,
         include: /src/,
@@ -29,69 +31,71 @@ const config = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ['env']
+            presets: ["env"]
           }
         }
       },
       {
         test: /\.html$/,
-        use: ['html-loader']
+        use: ["html-loader"]
       },
       {
         test: /\.s?css$/,
         use: extractPlugin.extract({
           use: [
             {
-              loader: 'css-loader',
+              loader: "css-loader",
               options: {
-                sourceMap: true
+                sourceMap: false
               }
-            }, {
-              loader: 'sass-loader',
+            },
+            {
+              loader: "sass-loader",
               options: {
-                sourceMap: true
+                sourceMap: false
               }
             }
           ],
-          fallback: 'style-loader'
+          fallback: "style-loader"
         })
       },
       {
         test: /\.(jpg|png|gif|svg)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[ext]',
-              outputPath: './assets/media/'
+              name: "[name].[ext]",
+              outputPath: "./assets/media/"
             }
           }
         ]
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader']
+        use: ["file-loader"]
       }
-
     ]
   },
 
   plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({template: 'index.html'}),
-    extractPlugin
+    new CleanWebpackPlugin(["dist"]),
+    new HtmlWebpackPlugin({ template: "index.html" }),
+    extractPlugin,
+    new PurgecssPlugin({
+      paths: glob.sync(`${path.join(__dirname, "src")}/**/*`, { nodir: true })
+    })
   ],
 
   devServer: {
     contentBase: path.resolve(__dirname, "./dist/assets/media"),
     compress: true,
     port: 2000,
-    stats: 'errors-only',
+    stats: "errors-only",
     open: true
   },
 
-  devtool: 'inline-source-map'
-
+  devtool: "source-map"
 };
 
 module.exports = config;
