@@ -14,7 +14,7 @@ const config = {
   context: path.resolve(__dirname, "src"),
 
   entry: {
-    app: "./index.js"
+    app: "./js/index.js"
   },
 
   output: {
